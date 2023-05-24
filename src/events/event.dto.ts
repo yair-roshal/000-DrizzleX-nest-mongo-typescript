@@ -1,9 +1,11 @@
 import { IsNotEmpty, IsEnum, IsOptional } from 'class-validator'
 
+import { EventType } from './enums/event-type'
+
 export class CreateEventDto {
     @IsNotEmpty()
-    @IsEnum(['user', 'system', 'sensor'])
-    eventType: string
+    @IsEnum(EventType)
+    eventType: EventType
 
     @IsNotEmpty()
     timestamp: Date

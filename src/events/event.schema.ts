@@ -2,6 +2,8 @@ import { Schema, Document } from 'mongoose'
 
 export type EventDocument = Event & Document
 
+import { EventType } from './enums/event-type'
+
 export const EventSchema = new Schema<Event>({
     eventType: { type: String, required: true },
     timestamp: { type: Date, default: Date.now, required: true },
@@ -19,9 +21,17 @@ export const EventSchema = new Schema<Event>({
     configChangeRequest: { type: String },
 })
 
-export interface Event {
-    eventType: string
+export interface EventBase {
+    eventType: EventType
     timestamp: Date
+}
+
+export interface SensorData {
+    dataField1?: string
+    dataField2?: number
+}
+
+export interface Event extends EventBase {
     userId?: string
     pageFrom?: string
     pageTo?: string
@@ -29,9 +39,6 @@ export interface Event {
     backgroundProcess?: string
     alertTrigger?: string
     sensorId?: string
-    sensorData?: {
-        dataField1?: string
-        dataField2?: number
-    }
+    sensorData?: SensorData
     configChangeRequest?: string
 }
